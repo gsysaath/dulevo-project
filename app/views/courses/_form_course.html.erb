@@ -1,9 +1,14 @@
 <%= simple_form_for @course do |f| %>
-  <%= f.input :code %>
-  <%= f.input :nameIT %>
-  <%= f.input :nameEN %>
-  <%= f.input :nameFR %>
-  <%= f.input :nameDE %>
-  <%= f.input :nameES %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :language %>
+  <%= f.input :status %>
+  <%= f.input :start_date %>
+  <%= f.input :start_time %>
+  <%= f.input :end_time %>
+  <%= f.input :note %>
+  <%= f.input :max_register, collection: 1..15 %>
+  <%= f.association :courses_type, collection: CoursesType.all, include_blank: false %>
+  <%= f.association :location, collection: Location.all, include_blank: false %>
   <%= f.button :submit %>
 <% end %>
