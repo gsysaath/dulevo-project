@@ -1,0 +1,6 @@
+<h1>Roles Types Index</h1>
+<% @roles_types.each do |type| %>
+  <p>code: <%= type.code %> | nameEN: <%= type.nameEN %> <%= link_to 'EDIT', edit_roles_type_path(type) %></p>
+<% end %>
+
+<h3><%= link_to 'New Roles Type', new_roles_type_path %></h3>

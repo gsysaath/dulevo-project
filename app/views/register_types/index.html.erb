@@ -1,0 +1,6 @@
+<h1>Register Types Index</h1>
+<% @register_types.each do |type| %>
+  <p>code: <%= type.code %> | nameEN: <%= type.nameEN %> <%= link_to 'EDIT', edit_register_type_path(type) %></p>
+<% end %>
+
+<h3><%= link_to 'New Register Type', new_register_type_path %></h3>
