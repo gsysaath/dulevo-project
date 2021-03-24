@@ -1,0 +1,6 @@
+<h1>Courses Types Index</h1>
+<% @courses_types.each do |type| %>
+  <p>note: <%= type.note %> <%= link_to 'EDIT', edit_courses_type_path(type) %></p>
+<% end %>
+
+<h3><%= link_to 'New Courses Type', new_courses_type_path %></h3>

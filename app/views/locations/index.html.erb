@@ -1,0 +1,6 @@
+<h1>Locations Index</h1>
+<% @locations.each do |location| %>
+  <p>name: <%= location.name %> | nation: <%= location.nation %> | language: <%= location.language %> <%= link_to 'EDIT', edit_location_path(location) %></p>
+<% end %>
+
+<h3><%= link_to 'New Location', new_location_path %></h3>
