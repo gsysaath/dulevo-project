@@ -1,0 +1,36 @@
+.locations_index_table {
+  table {
+    width: 100%;
+    th {
+      border: 1px solid black;
+      padding: 1vh 2vw;
+    }
+    td {
+      border: 1px solid black;
+      padding: 1vh 2vw;
+    }
+  }
+}
+
+.div_btn_add {
+  width: 100%;
+  display: flex;
+  p {
+    margin: 0;
+  }
+  a {
+    font-size: 20px;
+    color: white;
+    background-color: $green;
+    text-decoration: none;
+    width: 15vw;
+    text-align: center;
+    padding: 1vh 0;
+    border-radius: 10px;
+    margin: 0 auto 2vh auto;
+    margin-right: 0;
+    &:hover {
+      background-color: #05a85e;
+    }
+  }
+}

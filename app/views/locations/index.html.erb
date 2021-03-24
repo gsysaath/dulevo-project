@@ -1,6 +1,25 @@
-<h1>Locations Index</h1>
-<% @locations.each do |location| %>
-  <p>name: <%= location.name %> | nation: <%= location.nation %> | language: <%= location.language %> <%= link_to 'EDIT', edit_location_path(location) %></p>
-<% end %>
+<h1 class="text-center m-3">Locations Index</h1>
 
-<h3><%= link_to 'New Location', new_location_path %></h3>
+<div class="div_btn_add">
+  <%= link_to new_location_path, class:"btn_add" do %>
+    <p><strong>+</strong> Location</p>
+  <% end %>
+</div>
+
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>Name</th>
+      <th>Nation</th>
+      <th>Language</th>
+    </tr>
+  <% @locations.each do |location| %>
+    <tr>
+      <td><%= location.name.capitalize %></td>
+      <td><%= location.nation %></td>
+      <td><%= location.language %></td>
+      <td><%= link_to 'EDIT', edit_location_path(location) %></td>
+    </tr>
+  <% end %>
+  </table> 
+</div>
