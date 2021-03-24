@@ -1,11 +1,14 @@
 <div class="form-location">
-  <h3>Create a new location</h3>
+  <h4>Create a new location</h4>
   <%= simple_form_for @location do |f| %>
     <%= f.input :name, placeholder: '10 place Andre Malraux, 75001 Paris' %>
-    <div class="d-flex space-between">
+    <div class="d-flex space-between mt-2 mb-2">
     <%= f.input :nation, placeholder: 'France' %>
-    <%= f.input :language, collection: @languages%>
+    <%= f.input :language, placeholder: 'Choose', collection: @languages%>
     </div>
-    <%= f.button :submit, 'SAVE' %>
+    <div class="d-flex space-between">
+     <%= link_to "Cancel", :back, {:class=>"btn-cancel"} %>
+      <%= f.button :submit, 'Save', {:class=>"btn-save"} %>
+    </div>
   <% end %>
 </div>
