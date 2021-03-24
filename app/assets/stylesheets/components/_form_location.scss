@@ -1,5 +1,5 @@
 .form-location {
-  width: 400px;
+  width: 50vw;
   margin: 0 auto;
   padding: 20px;
   border-radius: 20px;
@@ -17,12 +17,13 @@
 }
 
 
-.form-location input {
+.form-location input[type=text] {
   border-radius: 12px;
   border-width: 1px;
   font-family:$body-font;
   width:100%;
   padding-left: 10px;
+  text-color:red
   }
 
 .select {
@@ -47,7 +48,7 @@
 }
 
 
-.form-location .btn-save {
+.btn-save {
   color: #fff;
   background-color: #5cb85c;
   border-color: #4cae4c;
@@ -57,19 +58,26 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 14px;
   line-height: 1.42857143;
   border-radius: 8px;
   user-select: none;
   width: 100px;
   margin-top: 10px;
+  user-select:none;
+  opacity: 0.8;
 }
 
-.form-location .btn-cancel {
+.btn-save:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+
+.btn-cancel {
   color: #fff;
   background-color: lightgrey;
   border-color: #4cae4c;
@@ -78,16 +86,30 @@
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
   border: 1px solid transparent;
-  padding: 6px 12px;
+  padding: 10px 23px;
   font-size: 14px;
   line-height: 1.42857143;
   border-radius: 8px;
   user-select: none;
-  width: 100px;
   margin-top: 10px;
+  opacity: 0.8;
 }
 
+ .btn-cancel:hover {
+    color: #fff;
+    text-decoration: none;
+    opacity: 1;
+}
+
+
+.location-inputs {
+  display: flex;
+  margin-top : 10px;
+}
+
+.buttons {
+  display : flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
