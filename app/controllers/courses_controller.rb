@@ -17,7 +17,10 @@ class CoursesController < ApplicationController
     else
       @if_admin = false
     end
-
+    @dealers = CoursesDealer.where(course: @course)
+    @teachers = CoursesTeacher.where(course: @course)
+    @participants = CoursesParticipant.where(course: @course)
+    @registers = CoursesRegister.where(course: @course)
   end
 
   def new
