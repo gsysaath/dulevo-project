@@ -1,0 +1,93 @@
+.form-location {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20px;
+  border-style:solid;
+  border-width: 0.2px;
+  margin-top: 40px;
+  text-family: $headers-font;
+  background-color : white;
+}
+
+.form-location h4 {
+  text-family: $headers-font;
+  padding-bottom: 5px;
+  text-align:center;
+}
+
+
+.form-location input {
+  border-radius: 12px;
+  border-width: 1px;
+  font-family:$body-font;
+  width:100%;
+  padding-left: 10px;
+  }
+
+.select {
+  border-radius: 12px;
+  border-width: 1px;
+  font-family:$body-font;
+  width:80%;
+  padding-left: 10px;
+}
+
+.form-location input::placeholder {
+ text-align: center;
+}
+
+.form-location .location_name {
+  border-top: 2px solid gray;
+  padding-top:8px;
+}
+
+.form-location .location_nation {
+  margin-right: 20px;
+}
+
+
+.form-location .btn-save {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 8px;
+  user-select: none;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.form-location .btn-cancel {
+  color: #fff;
+  background-color: lightgrey;
+  border-color: #4cae4c;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 8px;
+  user-select: none;
+  width: 100px;
+  margin-top: 10px;
+}
+
