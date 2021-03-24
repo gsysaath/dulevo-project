@@ -1,14 +1,14 @@
 <%= simple_form_for @course do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
-  <%= f.input :language %>
-  <%= f.input :status %>
+  <%= f.input :language, collection: @languages %>
+  <%= f.input :status, collection: [-1,0,2,3], input_html: { value: '0' }, include_blank: false, hint: '-1 = Annullato 0 = New 2 = Pubblicato 3 = Eseguito', hint_html: { class: ''} %>
   <%= f.input :start_date %>
   <%= f.input :start_time %>
   <%= f.input :end_time %>
   <%= f.input :note %>
-  <%= f.input :max_register, collection: 1..15 %>
-  <%= f.association :courses_type, collection: CoursesType.all, include_blank: false %>
+  <%= f.input :max_register, collection: 1..15, include_blank: false %>
+  <%= f.association :courses_type, collection: CoursesType.all.order(:id) ,label_method: :note, value_method: :id, include_blank: false %>
   <%= f.association :location, collection: Location.all, include_blank: false %>
   <%= f.button :submit %>
 <% end %>
