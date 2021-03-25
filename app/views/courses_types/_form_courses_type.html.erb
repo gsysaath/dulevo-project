@@ -1,8 +1,16 @@
 <div class="form-course-type">
-  <h4>Create a new course type</h4>
+  <% if action_name == "new" %>
+    <h4>Create a new course</h4>
+  <% elsif action_name == "edit" %>
+    <h4>Edit the course</h4>
+  <% end %>
   <%= simple_form_for @courses_type do |f| %>
   <%# in css do label[for=courses_type_note] { vertical-aligne: top} %>
     <%= f.input :note %>
-    <%= f.button :submit, 'Create', {:class=>"btn-save btn-course-type"}%>
+    <% if action_name == "new" %>
+      <%= f.button :submit, 'Create', {:class=>"btn-save btn-course-type"}%>
+    <% elsif action_name == "edit" %>
+      <%= f.button :submit, 'Edit', {:class=>"btn-save btn-course-type"}%>
+    <% end %>
   <% end %>
 </div>
