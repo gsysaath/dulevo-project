@@ -1,0 +1,34 @@
+.form-course-type {
+  width: 40vw;
+  margin: 0 auto;
+  padding: 40px;
+  margin-top: 40px;
+  background-color: white;
+  -moz-box-shadow: 0 0 3px #ccc;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 3px #ccc;
+
+  h4 {
+    padding-bottom: 5px;
+    text-align: center;
+    border-bottom: 2px solid gray;
+  }
+
+  label[for=courses_type_note] {
+    vertical-align: top;
+    width: 50vw;
+    margin-top: 8px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 140px;
+    border-radius: 8px;
+    padding: 6px;
+    resize: none;
+
+    &:focus{
+      outline: none;
+    }
+  }
+}
