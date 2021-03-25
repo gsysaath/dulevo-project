@@ -4,10 +4,10 @@
     <%= f.input :name, placeholder: '10 place Andre Malraux, 75001 Paris' %>
     <div class="location-inputs">
     <%= f.input :nation, placeholder: 'France' %>
-    <%= f.input :language, placeholder: 'Choose', collection: @languages%>
+    <%= f.input :language, collection: @languages, include_blank: false%>
     </div>
     <div class="buttons">
-     <%= link_to "Cancel", :back, {:class=>"btn-cancel"} %>
+      <%= link_to "Cancel", :back, {:class=>"btn-cancel"} %>
       <%= f.button :submit, 'Save', {:class=>"btn-save"} %>
     </div>
   <% end %>
