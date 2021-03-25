@@ -1,14 +1,27 @@
 <%= simple_form_for @course do |f| %>
+  <h4>Create a new course</h4>
   <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :language, collection: @languages %>
-  <%= f.input :status, collection: [-1,0,2,3], input_html: { value: '0' }, include_blank: false, hint: '-1 = Annullato 0 = New 2 = Pubblicato 3 = Eseguito', hint_html: { class: ''} %>
-  <%= f.input :start_date %>
-  <%= f.input :start_time %>
-  <%= f.input :end_time %>
-  <%= f.input :note %>
-  <%= f.input :max_register, collection: 1..15, include_blank: false %>
+  <%= f.input :description, as: :text %>
+  <%= f.input :note, input_html: { rows: 3 } %>
+  <%= f.input :status, collection: [[-1, 'Annullato'],[0, 'New'], [2, 'Pubblicato'] ,[3, 'Eseguito']], value_method: :first,label_method: :last, as: :radio_buttons, input_html: { value: '0' }, include_blank: false %>
+  <%= f.input :start_date,as: :string, input_html: { class: "datepicker" } %>
+  <div class="form_course_time">
+    <div class="start_end_time_div">
+      <%= f.input :start_time, as: :string, input_html: { class: "timepicker" }%>
+    </div>
+    <div class="start_end_time_div">
+      <%= f.input :end_time, as: :string, input_html: { class: "timepicker" } %>
+    </div>
+  </div>
+  <div class="form_course_language_register">
+    <div class="form_course_language">
+      <%= f.input :language, collection: @languages, include_blank: false %>
+    </div>
+    <div class="form_course_register">
+      <%= f.input :max_register, collection: 1..15, include_blank: false %>
+    </div>
+  </div>
   <%= f.association :courses_type, collection: CoursesType.all.order(:id) ,label_method: :note, value_method: :id, include_blank: false %>
   <%= f.association :location, collection: Location.all, include_blank: false %>
-  <%= f.button :submit %>
+  <%= f.button :submit, class:"btn-save" %>
 <% end %>
