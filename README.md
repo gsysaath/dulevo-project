@@ -1,1 +1,4 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+Dulevo Project all written in ruby.
+It allows users to participate in courses.
+Different types of users exist. 
+Only SuperUser (Admin) can create courses
