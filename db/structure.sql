@@ -29,10 +29,9 @@ CREATE TABLE `courses` (
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'Course Description',
   `language` varchar(2) NOT NULL DEFAULT '' COMMENT 'Language',
   `status` int NOT NULL DEFAULT '0' COMMENT '-1 = Annullato\r\n0 = New\r\n\r\n2 = Pubblicato\r\n3 = Eseguito',
-  `start_date` date DEFAULT NULL COMMENT 'Course Start Date',
-  `start_time` time DEFAULT NULL COMMENT 'Course Start Time',
-  `end_time` time DEFAULT NULL COMMENT 'Course End Time',
   `note` text,
+  `online` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'True or False if course if online',
+  `link` varchar(255) NOT NULL DEFAULT '' COMMENT 'Link of the online class',
   `close` varchar(1) NOT NULL DEFAULT 'N' COMMENT 'Course is finished = ''Y''',
   `max_register` int DEFAULT '0' COMMENT 'Max count register',
   `courses_type_id` bigint DEFAULT NULL COMMENT 'Course Type',
@@ -41,6 +40,19 @@ CREATE TABLE `courses` (
   KEY `index_courses_on_courses_type_id` (`courses_type_id`),
   KEY `index_courses_on_location_id` (`location_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Corso/Courses';
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `courses_area_managers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `courses_area_managers` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `participate` varchar(1) DEFAULT 'N' COMMENT 'Conferm participate : Y',
+  `user_id` bigint NOT NULL DEFAULT '0' COMMENT 'Area managers / Users with type = ''A''',
+  `course_id` bigint NOT NULL DEFAULT '0' COMMENT 'Course ID',
+  PRIMARY KEY (`id`),
+  KEY `index_courses_area_managers_on_user_id` (`user_id`),
+  KEY `index_courses_area_managers_on_course_id` (`course_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Courses Area managers';
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `courses_dealers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -63,13 +75,16 @@ DROP TABLE IF EXISTS `courses_participants`;
 CREATE TABLE `courses_participants` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `mail_count` int NOT NULL DEFAULT '0' COMMENT '0 = no mail, count mail sending',
+  `participate` varchar(1) DEFAULT 'N' COMMENT 'Conferm participate : Y',
   `user_id` bigint NOT NULL DEFAULT '0' COMMENT 'Users with type ''C'', ''V''',
   `courses_dealer_id` bigint NOT NULL DEFAULT '0' COMMENT 'Course Dealer id',
   `course_id` bigint NOT NULL DEFAULT '0' COMMENT 'Course id',
+  `courses_area_manager_id` bigint NOT NULL DEFAULT '0' COMMENT 'Course Area Manager id',
   PRIMARY KEY (`id`),
   KEY `index_courses_participants_on_user_id` (`user_id`),
   KEY `index_courses_participants_on_courses_dealer_id` (`courses_dealer_id`),
-  KEY `index_courses_participants_on_course_id` (`course_id`)
+  KEY `index_courses_participants_on_course_id` (`course_id`),
+  KEY `index_courses_participants_on_courses_area_manager_id` (`courses_area_manager_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Courses Participants';
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `courses_registers`;
@@ -83,6 +98,8 @@ CREATE TABLE `courses_registers` (
   `email` varchar(255) DEFAULT NULL,
   `telephone` varchar(255) NOT NULL DEFAULT '' COMMENT 'telephone number',
   `register_type_code` varchar(5) NOT NULL DEFAULT '' COMMENT 'tabel register type id',
+  `participate` varchar(1) DEFAULT 'N' COMMENT 'Conferm participate : Y',
+  `employee` tinyint(1) DEFAULT '1' COMMENT 'Employee or customer',
   `courses_participant_id` bigint NOT NULL DEFAULT '0' COMMENT 'tabel courses participants id',
   `course_id` bigint NOT NULL DEFAULT '0' COMMENT 'tabel courses id',
   PRIMARY KEY (`id`),
@@ -90,11 +107,24 @@ CREATE TABLE `courses_registers` (
   KEY `index_courses_registers_on_course_id` (`course_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Courses Registers';
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `courses_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `courses_sessions` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `start_time` datetime DEFAULT NULL COMMENT 'Course start datetime',
+  `end_time` datetime DEFAULT NULL COMMENT 'Course start datetime',
+  `course_id` bigint NOT NULL DEFAULT '0' COMMENT 'Course ID',
+  PRIMARY KEY (`id`),
+  KEY `index_courses_sessions_on_course_id` (`course_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Courses Sessions';
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `courses_teachers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `courses_teachers` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `participate` varchar(1) DEFAULT 'N' COMMENT 'Conferm participate : Y',
   `user_id` bigint NOT NULL DEFAULT '0' COMMENT 'Teachers / Users with type = ''T''',
   `course_id` bigint NOT NULL DEFAULT '0' COMMENT 'Course ID',
   PRIMARY KEY (`id`),
@@ -107,6 +137,7 @@ DROP TABLE IF EXISTS `courses_types`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `courses_types` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'Course Register ID',
+  `image_path` varchar(255) NOT NULL DEFAULT '' COMMENT 'Course image path',
   `note` mediumtext,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Tipo di ruolo / Types roles';
@@ -170,12 +201,13 @@ CREATE TABLE `users` (
   `remember_created_at` datetime DEFAULT NULL,
   `first_name` varchar(255) NOT NULL DEFAULT '' COMMENT 'First Name',
   `last_name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Last Name',
-  `nation` varchar(5) NOT NULL DEFAULT '' COMMENT 'Nation',
+  `nation` varchar(255) NOT NULL DEFAULT '' COMMENT 'Nation',
   `language` varchar(2) NOT NULL DEFAULT '' COMMENT 'Language for form',
   `as_400` varchar(80) NOT NULL DEFAULT '' COMMENT 'Code ERP',
   `note` varchar(255) DEFAULT NULL,
   `area` varchar(100) NOT NULL DEFAULT '' COMMENT 'Geografic Area',
   `roles_type_code` varchar(1) NOT NULL DEFAULT '' COMMENT 'id Tabel: Roles_type',
+  `showed_password` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
@@ -203,6 +235,8 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20210322130231'),
 ('20210322131228'),
 ('20210322134049'),
-('20210322135845');
+('20210322135845'),
+('20210329201712'),
+('20210329201845');
 
 

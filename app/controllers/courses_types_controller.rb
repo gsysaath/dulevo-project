@@ -49,6 +49,6 @@ class CoursesTypesController < ApplicationController
   end
 
   def courses_type_params
-    params.require(:courses_type).permit(:note)
+    params.require(:courses_type).permit(:note, :image_path)
   end
 end

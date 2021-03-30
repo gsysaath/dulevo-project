@@ -1,18 +1,15 @@
 <%= simple_form_for @course do |f| %>
-  <h4>Create a new course</h4>
+  <% if action_name == 'new' %>
+    <h4>Create a new course</h4>
+  <% elsif action_name == 'edit' %>
+    <h4>Edit the course</h4>
+  <% end %>
   <%= f.input :name %>
   <%= f.input :description, as: :text %>
   <%= f.input :note, input_html: { rows: 3 } %>
   <%= f.input :status, collection: [[-1, 'Annullato'],[0, 'New'], [2, 'Pubblicato'] ,[3, 'Eseguito']], value_method: :first,label_method: :last, as: :radio_buttons, input_html: { value: '0' }, include_blank: false %>
-  <%= f.input :start_date,as: :string, input_html: { class: "datepicker" } %>
-  <div class="form_course_time">
-    <div class="start_end_time_div">
-      <%= f.input :start_time, as: :string, input_html: { class: "timepicker" }%>
-    </div>
-    <div class="start_end_time_div">
-      <%= f.input :end_time, as: :string, input_html: { class: "timepicker" } %>
-    </div>
-  </div>
+  <%= f.input :online, include_blank: false, as: :radio_buttons %>
+  <%= f.input :link %>
   <div class="form_course_language_register">
     <div class="form_course_language">
       <%= f.input :language, collection: @languages, include_blank: false %>

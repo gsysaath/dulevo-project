@@ -1,0 +1,29 @@
+.navbar_secondary {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #444;
+  text-align: center;
+  li {
+    display: inline-block;
+    width: 20%;
+    margin-right: -4px;
+  }
+  a {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    &:hover {
+      background-color: #005f5f;
+    }
+    &:active {
+      background-color: #eee;
+      color: #444;
+      cursor: default;
+    }
+  }
+  .active {
+    background-color:#005f5f;
+  }
+}
+

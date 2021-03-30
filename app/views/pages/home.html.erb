@@ -1,6 +1,24 @@
-<h1>HOME PAGE</h1>
-<h3><%= link_to 'Roles Type Index', roles_types_path %></h3>
-<h3><%= link_to 'Locations Index', locations_path %></h3>
-<h3><%= link_to 'Register Types Index', register_types_path %></h3>
-<h3><%= link_to 'Courses Types Index', courses_types_path %></h3>
-<h3><%= link_to 'Courses Index', courses_path %></h3>
+<%= render 'shared/navbar_settings' %>
+<div class="div_btn_add">
+  <%= link_to new_user_registration_path, class:"btn_add" do %>
+    <p><strong>+</strong> User</p>
+  <% end %>
+</div>
+
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>Name</th>
+      <th>Nation</th>
+      <th>Language</th>
+    </tr>
+  <% User.all.each do |user| %>
+    <tr>
+      <td><%= user.first_name.capitalize %> <%= user.last_name.capitalize %></td>
+      <td><%= user.nation %></td>
+      <td><%= user.language %></td>
+      <td><%= link_to 'EDIT User', edit_user_registration_path(user) %></td>
+    </tr>
+  <% end %>
+  </table> 
+</div>

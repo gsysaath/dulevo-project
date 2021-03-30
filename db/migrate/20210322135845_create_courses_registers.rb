@@ -7,6 +7,8 @@ class CreateCoursesRegisters < ActiveRecord::Migration[6.1]
       t.string :email, null: true
       t.string :telephone, null: false, default: '', comment: "telephone number"
       t.string :register_type_code, null: false, default: '', limit: 5, comment: 'tabel register type id'
+      t.string :participate, default: 'N', limit: 1, comment: "Conferm participate : Y"
+      t.boolean :employee, default: true, comment: "Employee or customer"
       t.references :courses_participant, null: false, foreign_key: true, default: 0, comment: "tabel courses participants id"
       t.references :course, null: false, foreign_key: true, default: 0, comment: "tabel courses id"
     end
