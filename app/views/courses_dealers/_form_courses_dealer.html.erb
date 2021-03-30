@@ -1,0 +1,5 @@
+<%= simple_form_for ([@course, @dealer]) do |f| %>
+  <%= f.association :user, collection: User.where(roles_type_code: 'D').order(:id) ,label_method: :full_name, value_method: :id, include_blank: false  %>
+  <%= f.input :participate, collection: ['Y', 'N'], include_blank: false %>
+  <%= f.button :submit, class: "btn btn-success" %>
+<% end %>

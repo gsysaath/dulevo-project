@@ -6,4 +6,8 @@ class User < ApplicationRecord
   has_many :courses_teachers, dependent: :destroy
   has_many :courses_dealers, dependent: :destroy
   has_many :courses_participants, dependent: :destroy
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

@@ -1,0 +1,17 @@
+<ul class="navbar_secondary">
+  <li>
+    <%= link_to 'Users', pages_home_path, class: (controller_name == 'pages' ? 'active' : '') %>
+  </li>
+  <li>
+    <%= link_to 'Roles Types', roles_types_path, class: (controller_name == 'roles_types' ? 'active' : '') %>
+  </li>
+  <li>
+    <%= link_to 'Locations', locations_path, class: (controller_name == 'locations' ? 'active' : '') %>
+  </li>
+  <li>
+    <%= link_to 'Registers Types', register_types_path, class: (controller_name == 'register_types' ? 'active' : '') %>
+  </li>
+  <li>
+    <%= link_to 'Courses Types', courses_types_path, class: (controller_name == 'courses_types' ? 'active' : '') %>
+  </li>
+</ul>

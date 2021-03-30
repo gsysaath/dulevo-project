@@ -34,12 +34,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       t.string :first_name, null: false, default: "", comment: "First Name"
       t.string :last_name, null: false, default: "", comment: "Last Name"
-      t.string :nation, null: false, default: "", comment: "Nation", limit: 5
+      t.string :nation, null: false, default: "", comment: "Nation"
       t.string :language, null: false, default: "", comment: "Language for form", limit: 2
       t.string :as_400, null: false, default: "", comment: "Code ERP", limit: 80
       t.string :note
       t.string :area, null: false, default: "", comment: "Geografic Area", limit: 100
       t.string :roles_type_code, null: false, default: "", comment: "id Tabel: Roles_type", limit: 1
+      t.string :showed_password, null: false, default: ""
       t.timestamps null: false
     end
 

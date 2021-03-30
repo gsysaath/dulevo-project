@@ -1,22 +1,32 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[show edit update users_update admin_cancel]
-  before_action :admin_only, only: %i[new create edit update admin_cancel]
+  before_action :set_course, only: %i[show edit update users_update ]
+  before_action :admin_only, only: %i[new create edit update no_sessions]
 
   def index
-    @courses = Course.all
-    if current_user.roles_type_code != 'S'
-      @if_admin = true
-    else
-      @if_admin = false
-    end 
+    if @role == 'S'
+      @courses_sessions = CoursesSession.all.order(:start_time)
+    elsif @role == 'A'
+      @courses = CoursesAreaManager.where(user: current_user)
+      @courses_sessions = CoursesSession.where(course: @courses).order(:start_time)
+    elsif @role == 'D'
+      @courses = CoursesDealer.where(user: current_user)
+      @courses_sessions = CoursesSession.where(course: @courses).order(:start_time)
+    elsif @role == 'T'
+      @courses = CoursesTeacher.where(user: current_user)
+      @courses_sessions = CoursesSession.where(course: @courses).order(:start_time)
+    elsif @role == 'P'
+      @courses = CoursesParticipant.where(user: current_user)
+      @courses_sessions = CoursesSession.where(course: @courses).order(:start_time)
+    end
   end
 
+  def no_sessions
+    @courses = Course.all
+  end
+
+
   def show
-    if current_user.roles_type_code != 'S'
-      @if_admin = true
-    else
-      @if_admin = false
-    end
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
     @dealers = CoursesDealer.where(course: @course)
     @teachers = CoursesTeacher.where(course: @course)
     @participants = CoursesParticipant.where(course: @course)
@@ -27,24 +37,10 @@ class CoursesController < ApplicationController
     @course = Course.new
   end
 
-  def users_update
-    roles_type_code = current_user.roles_type_code
-  end
-
-  # CANCEL THE COURSE SHORTCUT
-  # def admin_cancel
-  #   @course.status = -1
-  #   if @course.save
-  #     redirect_to courses_path, notice: 'Status changed'
-  #   else
-  #     redirect_to courses_path, notice: 'Status change failed'
-  #   end
-  # end
-
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to courses_path, notice: 'Created successfully'
+      redirect_to course_path(@course), notice: 'Created successfully'
     else
       render :new
     end
@@ -55,7 +51,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      redirect_to courses_path, notice: 'Updated successfully'
+      redirect_to course_path(@course), notice: 'Updated successfully'
     else
       render :edit
     end

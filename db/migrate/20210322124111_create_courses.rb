@@ -5,10 +5,9 @@ class CreateCourses < ActiveRecord::Migration[6.1]
       t.string :description, null: false, default: "", comment: "Course Description"
       t.string :language, null: false, default: "", limit: 2, comment: "Language"
       t.integer :status, null: false, default: 0, comment: "-1 = Annullato\r\n0 = New\r\n\r\n2 = Pubblicato\r\n3 = Eseguito"
-      t.date :start_date, null: true, comment: "Course Start Date"
-      t.time :start_time, null: true, comment: "Course Start Time"
-      t.time :end_time, null: true, comment: "Course End Time"
       t.text :note
+      t.boolean :online, null: false, default: false, comment: "True or False if course if online"
+      t.string :link, null: false, default: '', comment: "Link of the online class"
       t.string :close, null: false, default: "N", limit: 1, comment: "Course is finished = \'Y\'"
       t.integer :max_register,default: 0, comment: "Max count register"
       t.references :courses_type, null: true, comment: "Course Type"

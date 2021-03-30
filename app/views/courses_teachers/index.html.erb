@@ -1,0 +1,13 @@
+<%= link_to '#', class:"btn btn-outline-primary" do %>
+  <p>Send Email All</p>
+<% end %>
+<%= link_to new_course_courses_teacher_path(@course), class:"btn btn-success" do %>
+  <p><strong>+</strong> Teacher</p>
+<% end %>
+
+<% @teachers.each do |teacher| %>
+  <h2><%= teacher.user.first_name %> <%= link_to (teacher.participate == 'N' ? 'Participate' : 'Quit'), (teacher.participate == 'N' ? '#' : '#' ) %> 
+  <%= link_to 'Send Mail', '#' %> 
+  <%= link_to 'Edit', edit_course_courses_teacher_path(@course, teacher) %> 
+  <%= link_to 'Delete', courses_teacher_path(teacher), method: :delete, data: {confirm: "Are you sure"} %></h2>
+<% end %>

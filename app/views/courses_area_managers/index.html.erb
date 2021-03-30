@@ -1,0 +1,17 @@
+<%= link_to '#', class:"btn btn-outline-primary" do %>
+  <p>Send Email All</p>
+<% end %>
+<%= link_to new_course_courses_area_manager_path(@course), class:"btn btn-success" do %>
+  <p><strong>+</strong> Area Manager</p>
+<% end %>
+
+<% @managers.each do |manager| %>
+  <h2><%= manager.user.first_name %> <%= link_to (manager.participate == 'N' ? 'Participate' : 'Quit'), (manager.participate == 'N' ? '#' : '#' ) %> 
+  <%= link_to 'Send Mail', '#' %> 
+  <%= link_to 'Edit', edit_course_courses_area_manager_path(@course, manager) %> 
+  <%= link_to 'Delete', courses_area_manager_path(manager), method: :delete, data: {confirm: "Are you sure"} %></h2>
+<% end %>
+
+<%= link_to course_courses_dealers_path(@course), class: "btn btn-success" do %>
+  <h3>Dealers</h3>
+<% end %>

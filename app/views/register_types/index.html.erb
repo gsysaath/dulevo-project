@@ -1,6 +1,23 @@
-<h1>Register Types Index</h1>
-<% @register_types.each do |type| %>
-  <p>code: <%= type.code %> | nameEN: <%= type.nameEN %> <%= link_to 'EDIT', edit_register_type_path(type) %></p>
-<% end %>
+<%= render 'shared/navbar_settings' %>
 
-<h3><%= link_to 'New Register Type', new_register_type_path %></h3>
+<div class="div_btn_add">
+  <%= link_to new_register_type_path, class:"btn_add" do %>
+    <p><strong>+</strong> Registers Type</p>
+  <% end %>
+</div>
+
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>code</th>
+      <th>Name</th>
+    </tr>
+  <% @register_types.each do |register| %>
+    <tr>
+      <td><%= register.code %></td>
+      <td><%= register.nameEN %></td>
+      <td><%= link_to 'Edit', edit_register_type_path(register) %></td>
+    </tr>
+  <% end %>
+  </table> 
+</div>

@@ -1,0 +1,16 @@
+<ul class="navbar_secondary">
+  <li>
+    <%= link_to 'All', courses_path, class: (action_name == 'index' && controller_name == 'courses' ? 'active' : '') %>
+  </li>
+  <li>
+    <%= link_to 'Incoming', '#' %>
+  </li>
+  <li>
+    <%= link_to 'Finished', '#' %>
+  </li>
+  <% if current_user.roles_type_code == 'S' %>
+    <li>
+      <%= link_to 'No Sessions', courses_no_sessions_path, class: (action_name == 'no_sessions' ? 'active' : '') %>
+    </li>
+  <% end %>
+</ul>

@@ -3,9 +3,12 @@ import flatpickr from "flatpickr";
 const initFlatpickr = () => {
   if (document.querySelector(".datepicker")) {
     flatpickr(".datepicker", {
-      dateFormat: "d/m/Y",
       minDate: "today",
-      defaultDate: "today",
+      enableTime: true,
+      time_24hr: true,
+      defaultHour: 8,
+      minTime: "06:00",
+      maxTime: "22:00"
     });
   }
 };

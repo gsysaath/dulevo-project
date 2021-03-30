@@ -66,28 +66,20 @@
   }
   .course_show_bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 0 1.5em 1em 1.5em;
     height: 100%;
     h3 {
       text-align: center;
       font-size: 30px;
-      border-bottom: 1px solid black;
       background-color: #f6ebeb;
       padding: 1vh 0;
-      position: sticky;
-    }
-    p {
-      font-size: 20px;
-      margin: 0px;
-      padding-left: 1vw;
-      padding-bottom: 0.3vh;
+      margin: 0 auto;
     }
     .course_show_box {
       border: 1px solid black;
       width: 30%;
-      height: 30vh;
-      overflow-y: scroll;
+      margin: 0;
     }
   }
 }

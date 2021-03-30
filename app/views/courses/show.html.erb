@@ -1,8 +1,7 @@
 <div class="course_show_div">
   <div class="course_show_top">
     <div class="course_show_top_time">
-      <p><%= @course.start_date.strftime("%d/%m/%Y") %></p>
-      <p><%= @course.start_time.strftime("%H:%M") %> - <%= @course.end_time.strftime("%H:%M") %></p>
+      
     </div>
     <div class="course_show_top_name_language">
       <p><%= @course.name %>(<%= @course.language %>)</p>
@@ -17,28 +16,62 @@
   <div class="course_show_description">
     <p><%= @course.description %></p>
   </div>
+  <div class="course_show_description">
+    <p><%= @course.note %></p>
+  </div>
+  <div class="course_show_description">
+    <h4>Sessions : <%= link_to 'Add Session', new_course_courses_session_path(@course) if @role == 'S' %></h4>
+    <% @sessions.each do |session| %>
+      <p>
+        ID :<%= session.id %>
+        <%= session.start_time %> ----- <%= session.end_time %>
+        <% if @role == 'S' %>
+          <%= link_to 'Edit', edit_course_courses_session_path(@course, session) %> 
+          <%= link_to 'Delete', course_courses_session_path(@course, session), method: :delete, data: {confirm: 'Are you sure?'} %>
+        <% end %>
+       </p>
+    <% end %>
+  </div>
+  
+  
+  
   <div class="course_show_bottom">
-    <div class="course_show_box">
-      <h3>Dealers</h3>
-      <% @dealers.each do |dealer| %>
-        <p><%= dealer.user.first_name %> <%= dealer.user.last_name %></p>
-      <% end %>
-    </div>
-    <div class="course_show_box">
-      <h3>Teachers</h3>
-      <% @teachers.each do |teacher| %>
-        <p><%= teacher.user.first_name %> <%= teacher.user.last_name %></p>
-      <% end %>
-    </div>
-    <div class="course_show_box">
-      <h3>Participants</h3>
-      <% @participants.each do |participant| %>
-        <p><%= participant.user.first_name %> <%= participant.user.last_name %></p>
-      <% end %>
-      <% 10.times do |i| %>
-        <p>Test <%= i %></p>
-      <% end %>
-    </div>
+    <% if @role == 'S' %>
+      <div class="course_show_box">
+        <%= link_to course_courses_area_managers_path(@course) do %>
+          <h3>Area Managers</h3>
+        <% end %>
+      </div>
+      <div class="course_show_box">
+        <%= link_to course_courses_teachers_path(@course) do %>
+          <h3>Teachers</h3>
+        <% end %>
+      </div>
+    
+    
+    
+    <% elsif @role == 'A' %>
+      <div class="course_show_box">
+        <%= link_to course_courses_dealers_path(@course) do %>
+          <h3>Dealers</h3>
+        <% end %>
+      </div>
+      <div class="course_show_box">
+        <%= link_to course_courses_teachers_path(@course) do %>
+          <h3>Teachers</h3>
+        <% end %>
+      </div>
+    
+    
+    
+    <% end %>
   </div>
 </div>
+
+<% if @role == 'A' %>
+  <%= link_to 'Participate', '#', class:"btn btn-info" if CoursesAreaManager.find_by(course: @course).participate == 'N' %>
+  <%= link_to 'Quit', '#', class:"btn btn-danger" if CoursesAreaManager.find_by(course: @course).participate == 'Y' %>
+<% elsif @role == 'S' %>
+  <%= link_to 'Edit Course', edit_course_path(@course), class:"btn btn-info" %>
+<% end %>
 

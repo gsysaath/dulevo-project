@@ -1,6 +1,25 @@
-<h1>Courses Types Index</h1>
-<% @courses_types.each do |type| %>
-  <p>note: <%= type.note %> <%= link_to 'EDIT', edit_courses_type_path(type) %></p>
-<% end %>
+<%= render 'shared/navbar_settings' %>
 
-<h3><%= link_to 'New Courses Type', new_courses_type_path %></h3>
+<div class="div_btn_add">
+  <%= link_to new_courses_type_path, class:"btn_add" do %>
+    <p><strong>+</strong> Courses Type</p>
+  <% end %>
+</div>
+
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>Note</th>
+      <th>Image path</th>
+    </tr>
+  <% @courses_types.each do |course| %>
+    <tr>
+      <td><%= course.note %></td>
+      <td><%= course.image_path %></td>
+      <td><%= link_to 'Edit', edit_courses_type_path(course) %></td>
+    </tr>
+  <% end %>
+  </table> 
+</div>
+
+<%= image_tag "#{CoursesType.first.image_path}.png", width: '200', height: '150' %>

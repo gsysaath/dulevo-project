@@ -1,0 +1,47 @@
+<%= render 'shared/navbar_secondary' %>
+<h1 class="text-center">Courses Index</h1>
+
+<% if current_user.roles_type_code == 'S' %>
+  <div class="div_btn_add">
+    <%= link_to new_course_path, class:"btn_add" do %>
+      <p><strong>+</strong> Course</p>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Name</th>
+      <th>Note</th>
+    </tr>
+  <% @courses.each do |course| %>
+    <% if course.courses_sessions.empty? %>
+      <tr>
+        <td>
+          Not defined
+        </td>
+        <td>
+          Not Defined
+        </td>
+        <td>
+          <%= link_to course_path(course) do %>
+            <%= course.name.capitalize %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to course_path(course) do %>
+            <%= course.note %>
+          <% end %>
+        </td>
+        <td><%= link_to 'EDIT', edit_course_path(course) %></td>
+      </tr>
+      
+    <% end %>
+  <% end %>
+  </table> 
+</div>
