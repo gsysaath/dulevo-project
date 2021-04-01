@@ -76,9 +76,175 @@ class CoursesController < ApplicationController
   end
 
   def no_sessions
-    @courses = Course.where(courses_sessions: [])
+    @courses = Course.all.select { |c| c.courses_sessions == [] }
   end
 
+  def incoming
+    if @role == 'S'
+      @courses = Course.all.select { |c| c.courses_sessions != [] }
+
+      @courses_sessions = []
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time > Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    elsif @role == 'A'
+      @courses = []
+      @courses_sessions = []
+      managers = CoursesAreaManager.where(user: current_user)
+      managers.each do |manager|
+        @courses << manager.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time > Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    elsif @role == 'D' || @role == 'C' || @role == 'V'
+      @courses = []
+      @courses_sessions = []
+      dealers = CoursesDealer.where(user: current_user)
+      dealers.each do |dealer|
+        @courses << dealer.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time > Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    elsif @role == 'T'
+      @courses = []
+      @courses_sessions = []
+      teachers = CoursesTeacher.where(user: current_user)
+      teachers.each do |teacher|
+        @courses << teacher.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time > Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    
+    elsif @role == 'P'
+      @courses = []
+      @courses_sessions = []
+      participants = CoursesParticipant.where(user: current_user)
+      participants.each do |participant|
+        @courses << participant.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time > Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    end
+  end
+
+  def finished
+    if @role == 'S'
+      @courses = Course.all.select { |c| c.courses_sessions != [] }
+
+      @courses_sessions = []
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time < Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    elsif @role == 'A'
+      @courses = []
+      @courses_sessions = []
+      managers = CoursesAreaManager.where(user: current_user)
+      managers.each do |manager|
+        @courses << manager.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time < Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    elsif @role == 'D' || @role == 'C' || @role == 'V'
+      @courses = []
+      @courses_sessions = []
+      dealers = CoursesDealer.where(user: current_user)
+      dealers.each do |dealer|
+        @courses << dealer.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time < Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    elsif @role == 'T'
+      @courses = []
+      @courses_sessions = []
+      teachers = CoursesTeacher.where(user: current_user)
+      teachers.each do |teacher|
+        @courses << teacher.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time < Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    
+    
+    
+    elsif @role == 'P'
+      @courses = []
+      @courses_sessions = []
+      participants = CoursesParticipant.where(user: current_user)
+      participants.each do |participant|
+        @courses << participant.course
+      end
+      @courses = @courses.select { |c| c.courses_sessions != []}
+      @courses.each do |course|
+        if (course.courses_sessions.sort_by { |c| c.end_time }.last.end_time < Time.now)
+          b = course.courses_sessions.sort_by { |c| c.start_time}.first
+          @courses_sessions << b
+        end
+      end
+      @courses_sessions.sort_by! { |c| c.start_time }
+    end
+  end
 
   def show
     @sessions = CoursesSession.where(course: @course).order(:start_time)

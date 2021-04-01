@@ -27,6 +27,7 @@ puts "*** Creating Users ***"
 puts "SuperUser / Admin"
 georges = User.create( email: "georges.sysaath@gmail.com",
                     password: "qwerty",
+                    showed_password: "qwerty",
                     first_name: 'Georges',
                     last_name: 'Sysaath',
                     roles_type_code: 'S',
@@ -34,6 +35,7 @@ georges = User.create( email: "georges.sysaath@gmail.com",
                     language: "EN" )
 puts "RandomUser"
 dealer = User.create( email: "dealer@gmail.com",
+                    showed_password: "qwerty",
                     password: "qwerty",
                     first_name: 'Dealer',
                     last_name: 'D',
@@ -42,6 +44,7 @@ dealer = User.create( email: "dealer@gmail.com",
                     language: "EN" )
 teacher = User.create( email: "teacher@gmail.com",
                     password: "qwerty",
+                    showed_password: "qwerty",
                     first_name: 'Teacher',
                     last_name: 'T',
                     roles_type_code: 'T',
@@ -49,6 +52,7 @@ teacher = User.create( email: "teacher@gmail.com",
                     language: "EN" )
 participant = User.create( email: "participant@gmail.com",
                     password: "qwerty",
+                    showed_password: "qwerty",
                     first_name: 'Participant',
                     last_name: 'P',
                     roles_type_code: 'P',
@@ -56,6 +60,7 @@ participant = User.create( email: "participant@gmail.com",
                     language: "EN" )
 customer = User.create( email: "customer@gmail.com",
                     password: "qwerty",
+                    showed_password: "qwerty",
                     first_name: 'Customer',
                     last_name: 'C V',
                     roles_type_code: 'C',
@@ -63,6 +68,7 @@ customer = User.create( email: "customer@gmail.com",
                     language: "EN" )
 manager = User.create( email: "manager@gmail.com",
                     password: "qwerty",
+                    showed_password: "qwerty",
                     first_name: 'Manager',
                     last_name: 'Area M',
                     roles_type_code: 'A',
@@ -76,12 +82,12 @@ RegisterType.create(id:3, code:'C', nameEN: 'cat')
 puts "*** Created Register Types ***"
 
 puts "*** Creating Locations ***"
-Location.create(name: "10 place andre malraux, 92390, Villeneuve la Garenne",
-                nation: "FRANC",
-                language: "FR")
 Location.create(name: "online",
                 nation: "ONLINE",
                 language: "ON")           
+Location.create(name: "10 place andre malraux, 92390, Villeneuve la Garenne",
+                nation: "FRANC",
+                language: "FR")
 Location.create(name: "6 rue du centre, 94016, Cachan",
                 nation: "FRANC",
                 language: "FR")

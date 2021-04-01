@@ -11,7 +11,7 @@
     <%= f.input :language, collection: @languages, include_blank: false%>
     </div>
     <div class="buttons">
-      <%= link_to "Cancel", :back, {:class=>"btn-cancel"} %>
+      <%= link_to "Cancel", locations_path, {:class=>"btn-cancel"} %>
       <% if action_name == "new" %>
         <%= f.button :submit, 'Create', {:class=>"btn-save"} %>
       <% elsif action_name == "edit" %>

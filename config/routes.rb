@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: [:passwords], controllers: { registrations: "users/registrations" }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  # List of Admins
+  namespace :users do
+      resources :users, only: [ :edit, :destroy, :update]
+  end
+  get 'users', to: 'users/users#index'
   root to: "courses#index"
-  get 'pages/home', to: "pages#home"
   patch '/courses/users_update/:id/', to: 'courses#users_update'
   get 'courses/no_sessions', to: 'courses#no_sessions'
+  get 'courses/incoming', to: 'courses#incoming'
+  get 'courses/finished', to: 'courses#finished'
   resources :roles_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
   resources :register_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
   resources :courses_types, only: [ :index, :new, :create, :edit, :update, :destroy ]

@@ -33,12 +33,6 @@
   </div>
   
   
-  
-
-  
-  
-  
-  
   <div class="course_show_bottom">
     <% if @role == 'S' %>
       <div class="course_show_box">
@@ -82,17 +76,29 @@
   </div>
 </div>
 <div class="card-trip">
-  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
+  <%= image_tag 'https://www.dulevo.com/altre-immagini/immagini_articoli/209/ingrandita_209.d1490782629.jpg' %>
   <div class="card-trip-infos">
     <div>
       <h2><%= @course.name %> (<%= @course.language %>)</h2>
       <p><%= @course.description %></p>
       <p></p>
+      <p>Sessions : <%= link_to 'Add Session', new_course_courses_session_path(@course) if @role == 'S' %></p>
+      <% @sessions.each do |session| %>
+        <p>
+          <%= session.start_time %> ----- <%= session.end_time %>
+          <% if @role == 'S' %>
+            <%= link_to 'Edit', edit_course_courses_session_path(@course, session) %> 
+            <%= link_to 'Delete', course_courses_session_path(@course, session), method: :delete, data: {confirm: 'Are you sure?'} %>
+          <% end %>
+        </p>
+      <% end %>
     </div>
     <div>
       <h2 class="card-trip-pricing"><%= @registers.count %>/<%= @course.max_register %></h2>
     </div>
+    
   </div>
+  
 </div>
 <% if @role == 'A' %>
   <% if !CoursesAreaManager.where(course: @course, user: current_user).empty? %>

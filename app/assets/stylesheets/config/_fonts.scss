@@ -19,3 +19,39 @@ $headers-font: "Marvel", "Helvetica", "sans-serif";
 ul, li {
   font-family: $headers-font;
 }
+h1 {
+  font-size: 30px!important;
+  @media screen and (max-width: 950px) {
+        font-size:24px!important;
+    }
+  @media screen and (max-width: 768px)  {
+    font-size: 22px!important;
+  }
+}
+h2 {
+  font-size: 28px!important;
+  @media screen and (max-width: 950px) {
+        font-size:22px!important;
+    }
+  @media screen and (max-width: 768px)  {
+    font-size: 20px!important;
+  }
+}
+h3 {
+  font-size: 26px!important;
+  @media screen and (max-width: 950px) {
+        font-size:20px!important;
+    }
+  @media screen and (max-width: 768px)  {
+    font-size: 18px!important;
+  }
+}
+p {
+  font-size: 18px!important;
+  @media screen and (max-width: 950px) {
+        font-size:16px!important;
+    }
+  @media screen and (max-width: 768px)  {
+    font-size: 14px!important;
+  }
+}
