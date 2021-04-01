@@ -23,7 +23,6 @@
     <h4>Sessions : <%= link_to 'Add Session', new_course_courses_session_path(@course) if @role == 'S' %></h4>
     <% @sessions.each do |session| %>
       <p>
-        ID :<%= session.id %>
         <%= session.start_time %> ----- <%= session.end_time %>
         <% if @role == 'S' %>
           <%= link_to 'Edit', edit_course_courses_session_path(@course, session) %> 

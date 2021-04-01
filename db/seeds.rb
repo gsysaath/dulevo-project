@@ -13,6 +13,7 @@ CoursesTeacher.destroy_all
 CoursesRegister.destroy_all
 puts "*** Destroy seeds finished ***"
 puts "*** Creating RolesTypes ***"
+# DEALER CONCESSIONARY AND CUSTOMER ARE DEALERS
 RolesType.create(id:1, code:'T', nameEN: 'Teacher')
 RolesType.create(id:2, code:'D', nameEN: 'Dealer')
 RolesType.create(id:3, code:'P', nameEN: 'Participant')
