@@ -22,4 +22,10 @@
   </table> 
 </div>
 
-<%= image_tag "#{CoursesType.first.image_path}.png", width: '200', height: '150' %>
+<% image_path = "app/assets/images/120.png" %> 
+<% if File.exist?(image_path) %> 
+  <%= image_tag '120.png', width: '400', height: '300' %>
+<% else %>
+  <%= image_tag "#{CoursesType.last.image_path}.png", width: '400', height: '300' %>
+<% end %>
+<%= image_tag "#{CoursesType.last.image_path}.png", width: '400', height: '300' %>

@@ -7,4 +7,6 @@ class Course < ApplicationRecord
   has_many :courses_registers, dependent: :destroy
   has_many :courses_area_managers, dependent: :destroy
   has_many :courses_sessions, dependent: :destroy
+
+  
 end

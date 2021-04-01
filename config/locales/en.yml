@@ -31,4 +31,10 @@
 
 en:
   hello: "Hello world"
-  dealers: "Dealers"
+  dealers: "Dealeers EN"
+  settings: 'Settings'
+  courses: 'Courses'
+  log_out: 'Log out'
+  start_time: 'Start time'
+  name: 'Name'
+  note: 'Note'

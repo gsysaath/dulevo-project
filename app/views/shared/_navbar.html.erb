@@ -1,15 +1,17 @@
-<div class="navbar navbar-expand-sm navbar-lewagon">
+<div class="navbar navbar-expand-sm  navbar-lewagon">
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag "dulevo-international-logo.png" %>
   <% end %>
-
+  <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
         <% if current_user.roles_type_code == 'S' %>
-        <li class="nav-item">
-          <%= link_to "Settings", pages_home_path, class: "nav-link" %>
-        </li>
+          <li class="nav-item">
+            <%= link_to "Settings", pages_home_path, class: "nav-link" %>
+          </li>
         <% end %>
         <li class="nav-item">
           <%= link_to "Courses", courses_path, class: "nav-link" %>

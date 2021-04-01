@@ -15,3 +15,7 @@ $headers-font: "Marvel", "Helvetica", "sans-serif";
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+ul, li {
+  font-family: $headers-font;
+}

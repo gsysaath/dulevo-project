@@ -10,7 +10,7 @@
   </li>
   <% if current_user.roles_type_code == 'S' %>
     <li>
-      <%= link_to 'No Sessions', courses_no_sessions_path, class: (action_name == 'no_sessions' ? 'active' : '') %>
+      <%= link_to 'Sessionless', courses_no_sessions_path, class: (action_name == 'no_sessions' ? 'active' : '') %>
     </li>
   <% end %>
 </ul>
