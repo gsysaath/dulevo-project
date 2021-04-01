@@ -1,6 +1,6 @@
 <%= render 'shared/navbar_settings' %>
 <div class="div_btn_add">
-  <%= link_to new_user_registration_path, class:"btn_add" do %>
+  <%= link_to  new_user_registration_path, class:"btn_add" do %>
     <p><strong>+</strong> User</p>
   <% end %>
 </div>
@@ -23,7 +23,7 @@
       <td><%= user.nation %></td>
       <td><%= user.language %></td>
       <td><%= user.roles_type_code %></td>
-      <td><%= link_to 'Edit', edit_user_registration_path(user) %></td>
+      <td><%= link_to 'Edit', edit_users_user_path(user) %> | <%= link_to 'Delete', users_user_path(user), method: :delete, data: { confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
   </table> 

@@ -16,7 +16,7 @@
     <tr>
       <td><%= register.code %></td>
       <td><%= register.nameEN %></td>
-      <td><%= link_to 'Edit', edit_register_type_path(register) %></td>
+      <td><%= link_to 'Edit', edit_register_type_path(register) %> | <%= link_to 'Delete', register_type_path(register), method: :delete, data: { confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
   </table> 

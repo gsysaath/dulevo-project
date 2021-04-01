@@ -1,5 +1,4 @@
 <%= render 'shared/navbar_secondary' %>
-<h1 class="text-center">Courses Index</h1>
 
 <% if current_user.roles_type_code == 'S' %>
   <div class="div_btn_add">
@@ -15,7 +14,6 @@
   <table>                         
     <tr>                          
       <th>Start Time</th>
-      <th>End Time</th>
       <th>Name</th>
       <th>Note</th>
     </tr>
@@ -24,9 +22,6 @@
       <tr>
         <td>
           Not defined
-        </td>
-        <td>
-          Not Defined
         </td>
         <td>
           <%= link_to course_path(course) do %>

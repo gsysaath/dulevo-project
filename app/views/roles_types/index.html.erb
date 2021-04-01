@@ -16,7 +16,7 @@
     <tr>
       <td><%= role.code %></td>
       <td><%= role.nameEN %></td>
-      <td><%= link_to 'Edit', edit_roles_type_path(role) %></td>
+      <td><%= link_to 'Edit', edit_roles_type_path(role) %> | <%= link_to 'Delete', roles_type_path(role), method: :delete, data: { confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
   </table> 

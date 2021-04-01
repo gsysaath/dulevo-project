@@ -3,10 +3,10 @@
     <%= link_to 'All', courses_path, class: (action_name == 'index' && controller_name == 'courses' ? 'active' : '') %>
   </li>
   <li>
-    <%= link_to 'Incoming', '#' %>
+    <%= link_to 'Incoming', courses_incoming_path, class: (action_name == 'incoming' ? 'active' : '') %>
   </li>
   <li>
-    <%= link_to 'Finished', '#' %>
+    <%= link_to 'Finished', courses_finished_path, class: (action_name == 'finished' ? 'active' : '') %>
   </li>
   <% if current_user.roles_type_code == 'S' %>
     <li>

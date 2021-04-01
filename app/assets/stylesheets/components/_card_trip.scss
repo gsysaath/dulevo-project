@@ -5,24 +5,33 @@
 }
 
 .card-trip > img {
-  height: 200px;
+  height: 450px;
   width: 100%;
-  object-fit: cover;
+  object-fit: fill;
+  @media screen and (max-width: 950px) {
+      height:400px;
+  }
+  @media screen and (max-width: 768px) {
+      height:350px;
+  }
+  @media screen and (max-width: 567px) {
+      height:200px;
+  }
+  @media screen and (max-width: 320px) {
+      height:150px;
+  }
 }
 
 .card-trip h2 {
-  font-size: 20px;
   font-weight: bold;
   margin: 0;
 }
 
 .card-trip h3 {
-  font-size: 18px;
   margin: 0;
 }
 
 .card-trip p {
-  font-size: 14px;
   opacity: .7;
   margin: 0;
 }

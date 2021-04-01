@@ -1,4 +1,6 @@
 <%= render 'shared/navbar_secondary' %>
+
+
 <% if current_user.roles_type_code == 'S' %>
   <div class="div_btn_add">
     <%= link_to new_course_path, class:"btn_add" do %>
@@ -7,21 +9,19 @@
   </div>
 <% end %>
 
+
+
+
 <% @courses_sessions.each do |session| %>
   <%= link_to course_path(session.course), class: "link-card-product" do %> 
-    <div class="card-product">
-      <% image_path = "app/assets/images/#{session.course.courses_type.image_path}.png" %> 
-      <% if File.exist?(image_path) %> 
-        <%= image_tag "#{session.course.courses_type.image_path}.png" %>
-      <% else %>
-        <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" %>
-      <% end %>
-      <div class="card-product-infos">
-        <h2><%= session.start_time.strftime("%d/%m/%Y %H:%M UTC") %></h2>
-        <h2><%= session.course.name.capitalize %></h2>
-        <p><%= session.course.description %></p>
-      </div>
+  <div class="card-product">
+    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+    <div class="card-product-infos">
+      <h2><%= session.start_time.strftime("%d/%m/%Y %H:%M UTC") %></h2>
+      <h2><%= session.course.name.capitalize %></h2>
+      <p><%= session.course.description %></p>
     </div>
+  </div>
   <% end %>
 <% end %>
 
@@ -49,5 +49,3 @@
   <% end %>
   </table> 
 </div>
-
-

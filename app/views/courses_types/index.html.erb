@@ -8,24 +8,18 @@
 
 <div class="locations_index_table">
   <table>                         
-    <tr>                          
+    <tr>
+      <th>Id</th>                       
       <th>Note</th>
       <th>Image path</th>
     </tr>
   <% @courses_types.each do |course| %>
     <tr>
+      <td><%= course.id %></td>
       <td><%= course.note %></td>
       <td><%= course.image_path %></td>
-      <td><%= link_to 'Edit', edit_courses_type_path(course) %></td>
+      <td><%= link_to 'Edit', edit_courses_type_path(course) %> | <%= link_to 'Delete', courses_type_path(course), method: :delete, data: { confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
   </table> 
 </div>
-
-<% image_path = "app/assets/images/120.png" %> 
-<% if File.exist?(image_path) %> 
-  <%= image_tag '120.png', width: '400', height: '300' %>
-<% else %>
-  <%= image_tag "#{CoursesType.last.image_path}.png", width: '400', height: '300' %>
-<% end %>
-<%= image_tag "#{CoursesType.last.image_path}.png", width: '400', height: '300' %>

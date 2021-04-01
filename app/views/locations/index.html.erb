@@ -17,7 +17,7 @@
       <td><%= location.name.capitalize %></td>
       <td><%= location.nation %></td>
       <td><%= location.language %></td>
-      <td><%= link_to 'EDIT', edit_location_path(location) %></td>
+      <td><%= link_to 'Edit', edit_location_path(location) %> | <%= link_to 'Delete', location_path(location), method: :delete, data: { confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
   </table> 
