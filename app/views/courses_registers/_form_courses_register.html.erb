@@ -1,14 +1,14 @@
 <%= simple_form_for ([@course, @register]) do |f| %>
   <%= f.input :people %>
-  <% if @role == 'T' || @role == 'A' || @role == 'S'%>
-    <%= f.input :vote, collection: [['Y','Graduate'],['N','Rejected']], label_method: :last, value_method: :first %>
-    <%= f.input :rating %>
-  <% end %>
   <%= f.input :email %>
   <%= f.input :telephone %>
   <%= f.input :employee, as: :radio_buttons %>
   <%= f.input :register_type_code, collection: RegisterType.all, label_method: :code, value_method: :code, include_blank: false %>
   <%= f.association :courses_participant, collection: CoursesParticipant.where(course: @course).order(:id) ,label_method: :full_name, value_method: :id, include_blank: false  %>
   <%= f.input :participate, collection: ['Y', 'N'], include_blank: false %>
+  <% if @role == 'T' || @role == 'A' || @role == 'S'%>
+    <%= f.input :vote, collection: [['Y','Graduate'],['N','Rejected']], label_method: :last, value_method: :first %>
+    <%= f.input :rating %>
+  <% end %>
   <%= f.button :submit, class: "btn btn-success" %>
 <% end %>

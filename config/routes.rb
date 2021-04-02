@@ -14,6 +14,14 @@ Rails.application.routes.draw do
   get 'courses/finished', to: 'courses#finished'
   patch '/courses/:course_id/courses_area_manager/:id/quit', to: "courses_area_managers#quit", as: "manager_quit"
   patch '/courses/:course_id/courses_area_manager/:id/participate', to: "courses_area_managers#participate", as: "manager_participate"
+  patch '/courses/:course_id/courses_dealer/:id/quit', to: "courses_dealers#quit", as: "dealer_quit"
+  patch '/courses/:course_id/courses_dealer/:id/participate', to: "courses_dealers#participate", as: "dealer_participate"
+  patch '/courses/:course_id/courses_teacher/:id/quit', to: "courses_teachers#quit", as: "teacher_quit"
+  patch '/courses/:course_id/courses_teacher/:id/participate', to: "courses_teachers#participate", as: "teacher_participate"
+  patch '/courses/:course_id/courses_participant/:id/quit', to: "courses_participants#quit", as: "participant_quit"
+  patch '/courses/:course_id/courses_participant/:id/participate', to: "courses_participants#participate", as: "participant_participate"
+  patch '/courses/:course_id/courses_register/:id/quit', to: "courses_registers#quit", as: "register_quit"
+  patch '/courses/:course_id/courses_register/:id/participate', to: "courses_registers#participate", as: "register_participate"
   resources :roles_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
   resources :register_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
   resources :courses_types, only: [ :index, :new, :create, :edit, :update, :destroy ]

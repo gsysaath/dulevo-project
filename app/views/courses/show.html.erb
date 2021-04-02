@@ -72,6 +72,20 @@
         <% end %>
       </div>
 
+    <% elsif @role == 'T' %>
+      <div class="course_show_box">
+        <%= link_to course_courses_registers_path(@course) do %>
+          <h3>Registers</h3>
+        <% end %>
+      </div>
+    
+    <% elsif @role == 'P' %>
+      <div class="course_show_box">
+        <%= link_to course_courses_registers_path(@course) do %>
+          <h3>Registers</h3>
+        <% end %>
+      </div>
+    
     <% end %>
   </div>
 
@@ -88,6 +102,28 @@
     <% end %>
   </div>
 
+<% elsif @role == 'D' && !CoursesDealer.where(course: @course, user: current_user).empty? %>
+  <div class="participate_course_show">
+    <% if CoursesDealer.where(course: @course, user: current_user).first.participate == 'N' %>
+      <h3>You are not participating</h3>
+      <%= link_to 'Participate', dealer_participate_path(@course, CoursesDealer.where(course: @course, user: current_user).first), method: :patch, class:"btn btn-block btn-success" if !@over %>
+    <% elsif CoursesDealer.where(course: @course, user: current_user).first.participate == 'Y' %>
+      <h3>You are participating</h3>
+      <%= link_to 'Quit', dealer_quit_path(@course, CoursesDealer.where(course: @course, user: current_user).first), method: :patch, data: { confirm: "Are you sure you want to quit" }, class:"btn btn-block btn-danger" if !@over %>
+    <% end %>
+  </div>    
+
+<% elsif @role == 'T' && !CoursesTeacher.where(course: @course, user: current_user).empty? %>
+  <div class="participate_course_show">
+    <% if CoursesTeacher.where(course: @course, user: current_user).first.participate == 'N' %>
+      <h3>You are not participating</h3>
+      <%= link_to 'Participate', teacher_participate_path(@course, CoursesTeacher.where(course: @course, user: current_user).first), method: :patch, class:"btn btn-block btn-success" if !@over %>
+    <% elsif CoursesTeacher.where(course: @course, user: current_user).first.participate == 'Y' %>
+      <h3>You are participating</h3>
+      <%= link_to 'Quit', teacher_quit_path(@course, CoursesTeacher.where(course: @course, user: current_user).first), method: :patch, data: { confirm: "Are you sure you want to quit" }, class:"btn btn-block btn-danger" if !@over %>
+    <% end %>
+  </div>   
+    
 
 <% elsif @role == 'S' %>
   <div class="participate_course_show">
