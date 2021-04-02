@@ -26,9 +26,13 @@
         <%= register.email %>
       </td>
       <td>
-        <%= link_to 'Send Mail', '#' %> | 
-        <%= link_to 'Edit', edit_course_courses_register_path(@course, register) %> | 
-        <%= link_to 'Delete', courses_register_path(register), method: :delete, data: {confirm: "Are you sure"} %>
+        <% if @role != 'P' || register.courses_participant == CoursesParticipant.where(course: @course, user: current_user).first %>
+          <%= link_to 'Send Mail', '#' %> | 
+        <% end %>
+        <%= link_to 'Edit', edit_course_courses_register_path(@course, register) %>
+        <% if @role == 'S' || @role == 'A' || @role == 'D' || (@role == 'P' && register.courses_participant == CoursesParticipant.where(course: @course, user: current_user).first) %>
+           | <%= link_to 'Delete', courses_register_path(register), method: :delete, data: {confirm: "Are you sure"} %>
+        <% end %>
       </td>
     </tr>
   <% end %>

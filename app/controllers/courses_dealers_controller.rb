@@ -1,7 +1,7 @@
 class CoursesDealersController < ApplicationController
-  before_action :admin_only
-  before_action :set_course, only: [ :index, :new, :create, :edit, :update ]
-  before_action :set_dealer, only: [ :edit, :update, :destroy ]
+  before_action :admin_only, except: [ :quit, :participate ]
+  before_action :set_course, only: [ :index, :new, :create, :edit, :update, :quit, :participate ]
+  before_action :set_dealer, only: [ :edit, :update, :destroy, :quit, :participate ]
 
   def index
     @dealers = CoursesDealer.where(course: @course)
@@ -36,6 +36,32 @@ class CoursesDealersController < ApplicationController
     course = @dealer.course
     @dealer.destroy
     redirect_to course_courses_dealers_path(course), notice: 'Deleted successfully'
+  end
+
+  def quit
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
+    @time_limit = @sessions.first.start_time - 10.days
+    difference = DateTime.now > @time_limit
+    DateTime.now > @time_limit ? @over = true : @over = false
+    if (@dealer.user == current_user || @role == 'S') && @over == false
+      @dealer.update!(participate: "N")
+      redirect_to course_path(@course), notice: "You're not participating anymore"
+    else
+      redirect_to root_path, notice: "You're not allowed"
+    end
+  end
+
+  def participate
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
+    @time_limit = @sessions.first.start_time - 10.days
+    difference = DateTime.now > @time_limit
+    DateTime.now > @time_limit ? @over = true : @over = false
+    if (@dealer.user == current_user || @role == 'S') && @over == false
+      @dealer.update!(participate: "Y")
+      redirect_to course_path(@course), notice: "You're participating now"
+    else
+      redirect_to root_path, notice: "You're not allowed"
+    end
   end
 
   private

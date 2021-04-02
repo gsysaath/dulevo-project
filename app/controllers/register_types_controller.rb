@@ -42,7 +42,7 @@ class RegisterTypesController < ApplicationController
   end
 
   def admin_only
-    if current_user.roles_type_code != 'S'
+    if @role != 'S' 
       redirect_to root_path
       flash[:alert] = "You are not authorized!"
     end
