@@ -40,15 +40,12 @@ class CoursesAreaManagersController < ApplicationController
 
   def quit
     @sessions = CoursesSession.where(course: @course).order(:start_time)
-    difference = (@sessions.first.start_time.to_i - DateTime.now.to_i) / 86400
-    if difference >= 10
-      @over = false
-    else
-      @over = true
-    end
-    if (@manager.user == current_user || @role == 'S') && @over == true
+    @time_limit = @sessions.first.start_time - 10.days
+    difference = DateTime.now > @time_limit
+    DateTime.now > @time_limit ? @over = true : @over = false
+    if (@manager.user == current_user || @role == 'S') && @over == false
       @manager.update!(participate: "N")
-      redirect_to course_path(@course), notice: "You're not participating anymore #{difference}"
+      redirect_to course_path(@course), notice: "You're not participating anymore"
     else
       redirect_to root_path, notice: "You're not allowed"
     end
@@ -56,15 +53,12 @@ class CoursesAreaManagersController < ApplicationController
 
   def participate
     @sessions = CoursesSession.where(course: @course).order(:start_time)
-    difference = (@sessions.first.start_time.to_i - DateTime.now.to_i) / 86400
-    if difference >= 10
-      @over = false
-    else
-      @over = true
-    end
-    if (@manager.user == current_user || @role == 'S') && @over == true
+    @time_limit = @sessions.first.start_time - 10.days
+    difference = DateTime.now > @time_limit
+    DateTime.now > @time_limit ? @over = true : @over = false
+    if (@manager.user == current_user || @role == 'S') && @over == false
       @manager.update!(participate: "Y")
-      redirect_to course_path(@course), notice: "You're participating now #{@sessions.first.start_time.to_i} #{DateTime.now.to_i}"
+      redirect_to course_path(@course), notice: "You're participating now"
     else
       redirect_to root_path, notice: "You're not allowed"
     end

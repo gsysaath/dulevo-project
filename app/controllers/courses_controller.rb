@@ -250,12 +250,9 @@ class CoursesController < ApplicationController
 
     @course = Course.find(params[:id])
     @sessions = CoursesSession.where(course: @course).order(:start_time)
-    difference = (@sessions.first.start_time.to_i - DateTime.now.to_i) / 86400
-    @time_limit = @sessions.first.start_time - 10.days
-    if difference >= 10
-      @over = false
-    else
-      @over = true
+    if !@sessions.empty?
+      @time_limit = @sessions.first.start_time - 10.days
+      DateTime.now > @time_limit ? @over = true : @over = false
     end
     @registers = CoursesRegister.where(course: @course)
     if @role == 'A' && CoursesAreaManager.where(course: @course, user: current_user).empty?

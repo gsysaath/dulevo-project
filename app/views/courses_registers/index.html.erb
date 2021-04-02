@@ -1,13 +1,36 @@
-<%= link_to '#', class:"btn btn-outline-primary" do %>
-  <p>Send Email All</p>
-<% end %>
-<%= link_to new_course_courses_register_path(@course), class:"btn btn-success" do %>
-  <p><strong>+</strong> Register</p>
-<% end %>
-
-<% @registers.each do |register| %>
-  <h2><%= register.people %> <%= link_to (register.participate == 'N' ? 'Participate' : 'Quit'), (register.participate == 'N' ? '#' : '#' ) %> 
-  <%= link_to 'Send Mail', '#' %> 
-  <%= link_to 'Edit', edit_course_courses_register_path(@course, register) %> 
-  <%= link_to 'Delete', courses_register_path(register), method: :delete, data: {confirm: "Are you sure"} %></h2>
-<% end %>
+<div class="top-choice">
+  <%= link_to 'Back to Course', course_path(@course), class: "btn btn-outline-primary" %>
+  <%= link_to '#', class:"btn btn-outline-primary" do %>
+    Send Email All
+  <% end %>
+  <%= link_to new_course_courses_register_path(@course), class:"btn btn-success" do %>
+    Add Register
+  <% end %>
+</div>
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>Name</th>
+      <th>Participate</th>
+      <th>Email</th>
+    </tr>
+  <% @registers.each do |register| %>
+    <tr>
+      <td>
+        <%= register.people %>
+      </td>
+      <td>
+        <%= register.participate %>
+      </td>
+      <td>
+        <%= register.email %>
+      </td>
+      <td>
+        <%= link_to 'Send Mail', '#' %> | 
+        <%= link_to 'Edit', edit_course_courses_register_path(@course, register) %> | 
+        <%= link_to 'Delete', courses_register_path(register), method: :delete, data: {confirm: "Are you sure"} %>
+      </td>
+    </tr>
+  <% end %>
+  </table> 
+</div>

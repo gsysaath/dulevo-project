@@ -15,7 +15,9 @@
           <% end %>
         </p>
       <% end %>
-      <p>Time limit to validate is : <%= @time_limit.strftime("%d/%m/%Y %H:%M UTC") %></p>
+      <% if !@sessions.empty? %>
+        <p>Time limit to validate is : <%= @time_limit.strftime("%d/%m/%Y %H:%M UTC") %></p>
+      <% end %>
     </div>
     <div>
       <h2 class="card-trip-pricing"><%= @registers.count %>/<%= @course.max_register %></h2>
@@ -70,10 +72,10 @@
   <div class="participate_course_show">
     <% if CoursesAreaManager.where(course: @course, user: current_user).first.participate == 'N' %>
       <h3>You are not participating</h3>
-      <%= link_to 'Participate', manager_participate_path(@course, CoursesAreaManager.where(course: @course, user: current_user).first), method: :patch, class:"btn btn-block btn-success" if @over %>
+      <%= link_to 'Participate', manager_participate_path(@course, CoursesAreaManager.where(course: @course, user: current_user).first), method: :patch, class:"btn btn-block btn-success" if !@over %>
     <% elsif CoursesAreaManager.where(course: @course, user: current_user).first.participate == 'Y' %>
       <h3>You are participating</h3>
-      <%= link_to 'Quit', manager_quit_path(@course, CoursesAreaManager.where(course: @course, user: current_user).first), method: :patch, data: { confirm: "Are you sure you want to quit" }, class:"btn btn-block btn-danger" if @over %>
+      <%= link_to 'Quit', manager_quit_path(@course, CoursesAreaManager.where(course: @course, user: current_user).first), method: :patch, data: { confirm: "Are you sure you want to quit" }, class:"btn btn-block btn-danger" if !@over %>
     <% end %>
   </div>
     

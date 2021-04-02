@@ -1,17 +1,42 @@
-<%= link_to '#', class:"btn btn-outline-primary" do %>
-  <p>Send Email All</p>
-<% end %>
-<%= link_to new_course_courses_dealer_path(@course), class:"btn btn-success" do %>
-  <p><strong>+</strong> Dealer</p>
-<% end %>
+<div class="top-choice">
+  <%= link_to 'Back to Course', course_path(@course), class: "btn btn-outline-primary" %>
+  <%= link_to '#', class:"btn btn-outline-primary" do %>
+    Send Email All
+  <% end %>
+  <%= link_to new_course_courses_dealer_path(@course), class:"btn btn-success" do %>
+    Add Dealer
+  <% end %>
+</div>
+<div class="locations_index_table">
+  <table>                         
+    <tr>                          
+      <th>Name</th>
+      <th>Participate</th>
+      <th>Email</th>
+    </tr>
+  <% @dealers.each do |dealer| %>
+    <tr>
+      <td>
+        <%= dealer.user.full_name %>
+      </td>
+      <td>
+        <%= dealer.participate %>
+      </td>
+      <td>
+        <%= dealer.user.email %>
+      </td>
+      <td>
+        <%= link_to 'Send Mail', '#' %> | 
+        <%= link_to 'Edit', edit_course_courses_dealer_path(@course, dealer) %> | 
+        <%= link_to 'Delete', courses_dealer_path(dealer), method: :delete, data: {confirm: "Are you sure"} %>
+      </td>
+    </tr>
+  <% end %>
+  </table> 
+</div>
 
-<% @dealers.each do |dealer| %>
-  <h2><%= dealer.user.first_name %> <%= link_to (dealer.participate == 'N' ? 'Participate' : 'Quit'), (dealer.participate == 'N' ? '#' : '#' ) %> 
-  <%= link_to 'Send Mail', '#' %> 
-  <%= link_to 'Edit', edit_course_courses_dealer_path(@course, dealer) %> 
-  <%= link_to 'Delete', courses_dealer_path(dealer), method: :delete, data: {confirm: "Are you sure"} %></h2>
-<% end %>
-
-<%= link_to course_courses_participants_path(@course), class: "btn btn-success" do %>
-  <h3>Participants</h3>
-<% end %>
+<div class="bottom-choice">
+  <%= link_to course_courses_participants_path(@course), class: "btn btn-success" do %>
+    Participants
+  <% end %>
+</div>

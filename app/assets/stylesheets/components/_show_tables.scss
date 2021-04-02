@@ -1,0 +1,17 @@
+.top-choice {
+  display: flex;
+  justify-content: space-between;
+  a {
+    margin: 5px;
+  }
+  margin-bottom:15px;
+}
+
+.bottom-choice {
+  display: flex;
+  justify-content: flex-end;
+  a {
+    margin: 5px;
+  }
+  margin-top:15px;
+}
