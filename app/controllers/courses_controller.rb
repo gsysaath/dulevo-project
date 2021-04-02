@@ -247,11 +247,26 @@ class CoursesController < ApplicationController
   end
 
   def show
+
+    @course = Course.find(params[:id])
     @sessions = CoursesSession.where(course: @course).order(:start_time)
-    @dealers = CoursesDealer.where(course: @course)
-    @teachers = CoursesTeacher.where(course: @course)
-    @participants = CoursesParticipant.where(course: @course)
+    difference = (@sessions.first.start_time.to_i - DateTime.now.to_i) / 86400
+    @time_limit = @sessions.first.start_time - 10.days
+    if difference >= 10
+      @over = false
+    else
+      @over = true
+    end
     @registers = CoursesRegister.where(course: @course)
+    if @role == 'A' && CoursesAreaManager.where(course: @course, user: current_user).empty?
+      redirect_to root_path, notice: "You're not authorized"
+    elsif @role == 'D' && CoursesDealer.where(course: @course, user: current_user).empty?
+      redirect_to root_path, notice: "You're not authorized"
+    elsif @role == 'P' && CoursesParticipant.where(course: @course, user: current_user).empty?
+      redirect_to root_path, notice: "You're not authorized"
+    elsif @role == 'T' && CoursesTeacher.where(course: @course, user: current_user).empty?
+      redirect_to root_path, notice: "You're not authorized"
+    end 
   end
 
   def new

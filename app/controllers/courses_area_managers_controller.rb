@@ -1,7 +1,7 @@
 class CoursesAreaManagersController < ApplicationController
-  before_action :admin_only
-  before_action :set_course, only: [ :index, :new, :create, :edit, :update ]
-  before_action :set_manager, only: [ :edit, :update, :destroy ]
+  before_action :admin_only, except: [ :quit, :participate ]
+  before_action :set_course, only: [ :index, :new, :create, :edit, :update, :quit, :participate ]
+  before_action :set_manager, only: [ :edit, :update, :destroy, :quit, :participate ]
 
   def index
     @managers = CoursesAreaManager.where(course: @course)
@@ -36,6 +36,38 @@ class CoursesAreaManagersController < ApplicationController
     course = @manager.destroy
     @manager.destroy
     redirect_to course_courses_area_managers_path(course), notice: 'Deleted successfully'
+  end
+
+  def quit
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
+    difference = (@sessions.first.start_time.to_i - DateTime.now.to_i) / 86400
+    if difference >= 10
+      @over = false
+    else
+      @over = true
+    end
+    if (@manager.user == current_user || @role == 'S') && @over == true
+      @manager.update!(participate: "N")
+      redirect_to course_path(@course), notice: "You're not participating anymore #{difference}"
+    else
+      redirect_to root_path, notice: "You're not allowed"
+    end
+  end
+
+  def participate
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
+    difference = (@sessions.first.start_time.to_i - DateTime.now.to_i) / 86400
+    if difference >= 10
+      @over = false
+    else
+      @over = true
+    end
+    if (@manager.user == current_user || @role == 'S') && @over == true
+      @manager.update!(participate: "Y")
+      redirect_to course_path(@course), notice: "You're participating now #{@sessions.first.start_time.to_i} #{DateTime.now.to_i}"
+    else
+      redirect_to root_path, notice: "You're not allowed"
+    end
   end
 
   private

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'courses/no_sessions', to: 'courses#no_sessions'
   get 'courses/incoming', to: 'courses#incoming'
   get 'courses/finished', to: 'courses#finished'
+  patch '/courses/:course_id/courses_area_manager/:id/quit', to: "courses_area_managers#quit", as: "manager_quit"
+  patch '/courses/:course_id/courses_area_manager/:id/participate', to: "courses_area_managers#participate", as: "manager_participate"
   resources :roles_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
   resources :register_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
   resources :courses_types, only: [ :index, :new, :create, :edit, :update, :destroy ]
