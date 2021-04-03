@@ -1,0 +1,42 @@
+.form_login {
+  width: 40vw;
+  margin: 0 auto;
+  padding: 40px;
+  margin-top: 40px;
+  background-color: white;
+  -moz-box-shadow: 0 0 3px #ccc;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 3px #ccc;
+
+  h2 {
+    text-align: center;
+  }
+
+  label {
+    font-color: $black;
+  }
+
+  .remember{
+    width: 20px;
+    margin-right: 6px;
+    margin-top:10px;
+  }
+
+  input{
+    border-radius: 8px;
+    border-width: 1px;
+    font-family: $body-font;
+    width: 100%;
+    padding-left: 10px;
+    &:focus{
+      outline: none;
+    }
+  }
+
+  label  {
+    vertical-align: top;
+    width: 50vw;
+    margin-top: 8px;
+  }
+
+}
