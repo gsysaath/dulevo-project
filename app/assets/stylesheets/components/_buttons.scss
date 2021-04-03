@@ -43,3 +43,26 @@
     opacity: 1;
   }
 }
+
+.btn-login {
+  color: #fff;
+  background-color: #005f5f;
+  border-color: #005f5f;
+  margin-bottom: 0;
+  font-weight: 600;
+  border: 1px solid transparent;
+  padding: 8px 14px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 8px;
+  user-select: none;
+  width: 200px!important;
+  margin-top: 6px;
+  user-select: none;
+  opacity: 0.8;
+
+  &:hover {
+    color: #fff;
+    opacity: 1;
+  }
+}
