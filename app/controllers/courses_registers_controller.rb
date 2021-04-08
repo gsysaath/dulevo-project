@@ -1,6 +1,6 @@
 class CoursesRegistersController < ApplicationController
-  before_action :set_course, only: [ :index, :new, :create, :edit, :update,  ]
-  before_action :set_register, only: [ :edit, :update, :destroy ]
+  before_action :set_course, only: [ :index, :new, :create, :edit, :update, :quit, :participate ]
+  before_action :set_register, only: [ :edit, :update, :destroy, :quit, :participate ]
   before_action :authorized_people, except: [ :destroy ]
 
   def index
@@ -44,6 +44,32 @@ class CoursesRegistersController < ApplicationController
     redirect_to course_courses_registers_path(course), notice: 'Deleted successfully'
   end
 
+  def quit
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
+    @time_limit = @sessions.first.start_time - 10.days
+    difference = DateTime.now > @time_limit
+    DateTime.now > @time_limit ? @over = true : @over = false
+    if (@register.participant.user == current_user || @role != 'P') && @over == false
+      @register.update!(participate: "N")
+      redirect_to course_path(@course), notice: "You're not participating anymore"
+    else
+      redirect_to root_path, notice: "You're not allowed"
+    end
+  end
+
+  def participate
+    @sessions = CoursesSession.where(course: @course).order(:start_time)
+    @time_limit = @sessions.first.start_time - 10.days
+    difference = DateTime.now > @time_limit
+    DateTime.now > @time_limit ? @over = true : @over = false
+    if (@register.participant.user == current_user || @role != 'S') && @over == false
+      @register.update!(participate: "Y")
+      redirect_to course_path(@course), notice: "You're participating now"
+    else
+      redirect_to root_path, notice: "You're not allowed"
+    end
+  end
+
   private
 
   def set_course
@@ -74,6 +100,7 @@ class CoursesRegistersController < ApplicationController
       :email,
       :telephone,
       :participate,
+      :employee,
       :register_type_code,
       :courses_participant_id,
       :course_id)

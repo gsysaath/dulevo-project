@@ -1,7 +1,9 @@
 <div class="top-choice">
   <%= link_to 'Back to Course', course_path(@course), class: "btn btn-outline-primary" %>
-  <%= link_to '#', class:"btn btn-outline-primary" do %>
-    Send Email All
+  <% if @role != 'P' %>
+    <%= link_to '#', class:"btn btn-outline-primary" do %>
+      Send Email All
+    <% end %>
   <% end %>
   <%= link_to new_course_courses_register_path(@course), class:"btn btn-success" do %>
     Add Register
@@ -13,6 +15,7 @@
       <th>Name</th>
       <th>Participate</th>
       <th>Email</th>
+      <th>Vote</th>
     </tr>
   <% @registers.each do |register| %>
     <tr>
@@ -26,11 +29,14 @@
         <%= register.email %>
       </td>
       <td>
+        <%= register.vote %>
+      </td>
+      <td>
         <% if @role != 'P' || register.courses_participant == CoursesParticipant.where(course: @course, user: current_user).first %>
           <%= link_to 'Send Mail', '#' %> | 
         <% end %>
-        <%= link_to 'Edit', edit_course_courses_register_path(@course, register) %>
-        <% if @role == 'S' || @role == 'A' || @role == 'D' || (@role == 'P' && register.courses_participant == CoursesParticipant.where(course: @course, user: current_user).first) %>
+        <% if @role == 'S' || @role == 'A' || @role == 'D' || @role == 'T' || (@role == 'P' && register.courses_participant == CoursesParticipant.where(course: @course, user: current_user).first) %>
+          <%= link_to 'Edit', edit_course_courses_register_path(@course, register) %>
            | <%= link_to 'Delete', courses_register_path(register), method: :delete, data: {confirm: "Are you sure"} %>
         <% end %>
       </td>

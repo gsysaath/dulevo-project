@@ -1,14 +1,34 @@
-<%= simple_form_for ([@course, @register]) do |f| %>
-  <%= f.input :people %>
-  <%= f.input :email %>
-  <%= f.input :telephone %>
-  <%= f.input :employee, as: :radio_buttons %>
-  <%= f.input :register_type_code, collection: RegisterType.all, label_method: :code, value_method: :code, include_blank: false %>
-  <%= f.association :courses_participant, collection: CoursesParticipant.where(course: @course).order(:id) ,label_method: :full_name, value_method: :id, include_blank: false  %>
-  <%= f.input :participate, collection: ['Y', 'N'], include_blank: false %>
-  <% if @role == 'T' || @role == 'A' || @role == 'S'%>
-    <%= f.input :vote, collection: [['Y','Graduate'],['N','Rejected']], label_method: :last, value_method: :first %>
-    <%= f.input :rating %>
+<div class="form_roles_type">
+  <% if action_name == 'new' %>
+    <h4>Create a new register</h4>
+  <% elsif action_name == 'edit' %>
+    <h4>Edit the register</h4>
   <% end %>
-  <%= f.button :submit, class: "btn btn-success" %>
-<% end %>
+  <%= simple_form_for ([@course, @register]) do |f| %>
+    <% if @role != 'T' %>
+      <%= f.input :people %>
+      <%= f.input :email %>
+      <%= f.input :telephone %>
+      <%= f.input :employee, collection: [ [false,'False'], [true,'True'] ], include_blank: false, value_method: :first,label_method: :last,  selected: 1 %>
+      <%= f.input :register_type_code, collection: RegisterType.all, label_method: :code, value_method: :code, include_blank: false %>
+      <% if @role == 'P' %>
+        <%= f.association :courses_participant, collection: CoursesParticipant.where(course: @course, user: current_user),label_method: :full_name, value_method: :id, include_blank: false %>
+      <% else %>
+        <%= f.association :courses_participant, collection: CoursesParticipant.where(course: @course).order(:id) ,label_method: :full_name, value_method: :id, include_blank: false %>
+      <% end %>
+      <%= f.input :participate, collection: ['Y', 'N'], include_blank: false %>
+    <% end %>
+    <% if @role != 'P' %>
+      <%= f.input :vote, collection: [['N','Rejected'],['Y','Graduate']], label_method: :last, value_method: :first, include_blank: false %>
+      <%= f.input :rating %>
+    <% end %>
+    <div class="buttons">
+      <%= link_to "Cancel", courses_path, {:class=>"btn-cancel"} %>
+      <% if action_name == "new" %>
+        <%= f.button :submit, 'Create', {:class=>"btn-save"} %>
+      <% elsif action_name == "edit" %>
+        <%= f.button :submit, 'Edit', {:class=>"btn-save"} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

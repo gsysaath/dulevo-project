@@ -1,5 +1,19 @@
-<%= simple_form_for ([@course, @session]) do |f| %>
-  <%= f.input :start_time, as: :string, input_html: {class: "datepicker"} %>
-  <%= f.input :end_time, as: :string, input_html: {class: "datepicker"} %>
-  <%= f.button :submit, class: "btn btn-success" %>
-<% end %>
+<div class="form_roles_type">
+  <% if action_name == 'new' %>
+    <h4>Create a new session</h4>
+  <% elsif action_name == 'edit' %>
+    <h4>Edit the session/h4>
+  <% end %>
+  <%= simple_form_for ([@course, @session]) do |f| %>
+    <%= f.input :start_time, as: :string, input_html: {class: "datepicker"} %>
+    <%= f.input :end_time, as: :string, input_html: {class: "datepicker"} %>
+    <div class="buttons">
+      <%= link_to "Cancel", courses_path, {:class=>"btn-cancel"} %>
+      <% if action_name == "new" %>
+        <%= f.button :submit, 'Create', {:class=>"btn-save"} %>
+      <% elsif action_name == "edit" %>
+        <%= f.button :submit, 'Edit', {:class=>"btn-save"} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

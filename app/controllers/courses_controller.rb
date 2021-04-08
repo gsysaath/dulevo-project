@@ -315,11 +315,10 @@ class CoursesController < ApplicationController
       :description,
       :language,
       :status,
-      :start_date,
-      :start_time,
-      :end_time,
       :note,
       :close,
+      :online,
+      :link,
       :max_register,
       :courses_type_id,
       :location_id)

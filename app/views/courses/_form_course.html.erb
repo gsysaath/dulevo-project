@@ -8,7 +8,7 @@
     <%= f.input :name %>
     <%= f.input :description, as: :text %>
     <%= f.input :note, input_html: { rows: 3 } %>
-    <%= f.input :status, collection: [[-1, 'Annullato'],[0, 'New'], [2, 'Pubblicato'] ,[3, 'Eseguito']], value_method: :first,label_method: :last, input_html: { value: '0' }, include_blank: false %>
+    <%= f.input :status, collection: [[-1, 'Annullato'],[0, 'New'], [2, 'Pubblicato'] ,[3, 'Eseguito']], value_method: :first, label_method: :last, input_html: { value: '0' }, include_blank: false %>
     <%= f.input :online, collection: [[true,'True'], [false,'False']], include_blank: false, value_method: :first,label_method: :last, input_html: { value: '0' } %>
     <%= f.input :link %>
     <%= f.input :language, collection: @languages, include_blank: false %>

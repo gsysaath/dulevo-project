@@ -7,47 +7,51 @@
   </div>
 <% end %>
 
-<% @courses_sessions.each do |session| %>
-  <%= link_to course_path(session.course), class: "link-card-product" do %> 
-    <div class="card-product">
-      <% image_path = "app/assets/images/#{session.course.courses_type.image_path}.png" %> 
-      <% if File.exist?(image_path) %> 
-        <%= image_tag "#{session.course.courses_type.image_path}.png" %>
-      <% else %>
-        <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" %>
-      <% end %>
-      <div class="card-product-infos">
-        <h2><%= session.start_time.strftime("%d/%m/%Y %H:%M UTC") %></h2>
-        <h2><%= session.course.name.capitalize %></h2>
-        <p><%= session.course.description %></p>
+
+<% if @role != 'S' %>
+  <% @courses_sessions.each do |session| %>
+    <%= link_to course_path(session.course), class: "link-card-product" do %> 
+      <div class="card-product">
+        <% image_path = "app/assets/images/#{session.course.courses_type.image_path}.png" %> 
+        <% if File.exist?(image_path) %> 
+          <%= image_tag "#{session.course.courses_type.image_path}.png" %>
+        <% else %>
+          <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" %>
+        <% end %>
+        <div class="card-product-infos">
+          <h2><%= session.start_time.strftime("%d/%m/%Y %H:%M UTC") %></h2>
+          <h2><%= session.course.name.capitalize %></h2>
+          <p><%= session.course.description %></p>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
+<% else %>
+  <div class="locations_index_table">
+    <table>                         
+      <tr>                          
+        <th><%= t('start_time') %></th>
+        <th><%= t('name') %></th>
+        <th><%= t('note') %></th>
+      </tr>
+    <% @courses_sessions.each do |session| %>
+      <tr>
+        <td>
+          <%= session.start_time.strftime("%d/%m/%Y %H:%M UTC") %>
+        </td>
+        <td>
+          <%= link_to course_path(session.course) do %>
+            <%= session.course.name.capitalize %>
+          <% end %>
+        </td>
+        <td>
+          <%= session.course.note %>
+        </td>
+      </tr>
+    <% end %>
+    </table> 
+  </div>
 <% end %>
 
-<div class="locations_index_table">
-  <table>                         
-    <tr>                          
-      <th><%= t('start_time') %></th>
-      <th><%= t('name') %></th>
-      <th><%= t('note') %></th>
-    </tr>
-  <% @courses_sessions.each do |session| %>
-    <tr>
-      <td>
-        <%= session.start_time.strftime("%d/%m/%Y %H:%M UTC") %>
-      </td>
-      <td>
-        <%= link_to course_path(session.course) do %>
-          <%= session.course.name.capitalize %>
-        <% end %>
-      </td>
-      <td>
-        <%= session.course.note %>
-      </td>
-    </tr>
-  <% end %>
-  </table> 
-</div>
 
 

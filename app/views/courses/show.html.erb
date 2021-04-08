@@ -4,12 +4,16 @@
     <div>
       <h2><%= @course.name %> (<%= @course.language %>)</h2>
       <p><%= @course.description %></p>
-      <p></p>
+      <% if @course.online %>
+        <p><%= @course.link %></p>
+      <% else %>
+        <p><%= @course.location.name %></p>
+      <% end %>
       <p>Sessions <% if @role == 'S' %>
         <%= link_to new_course_courses_session_path(@course) do %>
           <i class="fas fa-plus-circle icon-add-session"></i>
         <%end %>
-        <%end %>
+      <%end %>
       </p>
       <% @sessions.each do |session| %>
         <p>
@@ -123,7 +127,17 @@
       <%= link_to 'Quit', teacher_quit_path(@course, CoursesTeacher.where(course: @course, user: current_user).first), method: :patch, data: { confirm: "Are you sure you want to quit" }, class:"btn btn-block btn-danger" if !@over %>
     <% end %>
   </div>   
-    
+
+<% elsif @role == 'P' && !CoursesParticipant.where(course: @course, user: current_user).empty? %>
+  <div class="participate_course_show">
+    <% if CoursesParticipant.where(course: @course, user: current_user).first.participate == 'N' %>
+      <h3>You are not participating</h3>
+      <%= link_to 'Participate', participant_participate_path(@course, CoursesParticipant.where(course: @course, user: current_user).first), method: :patch, class:"btn btn-block btn-success" if !@over %>
+    <% elsif CoursesParticipant.where(course: @course, user: current_user).first.participate == 'Y' %>
+      <h3>You are participating</h3>
+      <%= link_to 'Quit', participant_quit_path(@course, CoursesParticipant.where(course: @course, user: current_user).first), method: :patch, data: { confirm: "Are you sure you want to quit" }, class:"btn btn-block btn-danger" if !@over %>
+    <% end %>
+  </div>     
 
 <% elsif @role == 'S' %>
   <div class="participate_course_show">
