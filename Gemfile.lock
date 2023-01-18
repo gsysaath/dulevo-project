@@ -130,6 +130,8 @@ GEM
     nio4r (2.5.7)
     nokogiri (1.11.2-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.11.2-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     popper_js (1.16.0)
     pry (0.13.1)
@@ -144,7 +146,7 @@ GEM
     puma (5.2.2)
       nio4r (~> 2.0)
     racc (1.5.2)
-    rack (2.2.3)
+    rack (2.2.6.2)
     rack-mini-profiler (2.3.1)
       rack (>= 1.2.0)
     rack-proxy (0.6.5)
@@ -244,6 +246,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-linux
 
 DEPENDENCIES
   autoprefixer-rails
